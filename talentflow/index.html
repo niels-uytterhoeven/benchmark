@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- BUG-065: Title never changes on navigation -->
+  <title>TalentFlow - HR Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Sidebar navigation -->
+    <!-- BUG-057: No skip navigation link -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <h2>TalentFlow</h2>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#/" class="nav-item active" data-section="dashboard">
+          <span class="nav-icon">&#x1F4CA;</span> Dashboard
+        </a>
+        <a href="#/jobs" class="nav-item" data-section="jobs">
+          <span class="nav-icon">&#x1F4BC;</span> Jobs
+        </a>
+        <a href="#/candidates" class="nav-item" data-section="candidates">
+          <span class="nav-icon">&#x1F465;</span> Candidates
+        </a>
+        <a href="#/employees" class="nav-item" data-section="employees">
+          <span class="nav-icon">&#x1F3E2;</span> Employees
+        </a>
+        <a href="#/timeoff" class="nav-item" data-section="timeoff">
+          <span class="nav-icon">&#x1F3D6;&#xFE0F;</span> Time Off
+        </a>
+        <a href="#/reviews" class="nav-item" data-section="reviews">
+          <span class="nav-icon">&#x2B50;</span> Reviews
+        </a>
+        <a href="#/departments" class="nav-item" data-section="departments">
+          <span class="nav-icon">&#x1F3DB;&#xFE0F;</span> Departments
+        </a>
+        <a href="#/onboarding" class="nav-item" data-section="onboarding">
+          <span class="nav-icon">&#x1F680;</span> Onboarding
+        </a>
+        <a href="#/training" class="nav-item" data-section="training">
+          <span class="nav-icon">&#x1F4DA;</span> Training
+        </a>
+        <a href="#/payroll" class="nav-item" data-section="payroll">
+          <span class="nav-icon">&#x1F4B0;</span> Payroll
+        </a>
+        <a href="#/documents" class="nav-item" data-section="documents">
+          <span class="nav-icon">&#x1F4C4;</span> Documents
+        </a>
+        <a href="#/reports" class="nav-item" data-section="reports">
+          <span class="nav-icon">&#x1F4C8;</span> Reports
+        </a>
+        <a href="#/calendar" class="nav-item" data-section="calendar">
+          <span class="nav-icon">&#x1F4C5;</span> Calendar
+        </a>
+        <a href="#/settings" class="nav-item" data-section="settings">
+          <span class="nav-icon">&#x2699;&#xFE0F;</span> Settings
+        </a>
+      </nav>
+    </aside>
+
+    <div class="main-wrapper">
+      <!-- Top header bar -->
+      <header class="top-header">
+        <button class="sidebar-toggle" data-action="toggle-sidebar">&#9776;</button>
+        <div class="header-search">
+          <input type="text" id="global-search" placeholder="Search...">
+        </div>
+        <div class="header-actions">
+          <button class="notif-btn" data-action="nav-to" data-href="#/notifications">
+            &#x1F514; <span id="notif-badge" class="notif-badge"></span>
+          </button>
+          <div id="user-menu"></div>
+        </div>
+      </header>
+
+      <!-- Main content -->
+      <main id="app"></main>
+
+      <!-- Footer with broken links -->
+      <footer class="footer">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h4>TalentFlow</h4>
+            <p>HR management made simple.</p>
+          </div>
+          <div class="footer-section">
+            <h4>Resources</h4>
+            <!-- BUG-094: Server path, not hash route — 404 -->
+            <a href="/privacy-policy">Privacy Policy</a>
+            <!-- BUG-095: Server path — 404 -->
+            <a href="/terms">Terms of Service</a>
+          </div>
+          <div class="footer-section">
+            <h4>Help</h4>
+            <!-- BUG-096: Non-existent hash route -->
+            <a href="#/help">Help Center</a>
+            <!-- BUG-098: Dead external URL -->
+            <a href="https://docs.talentflow.example.com/guide" target="_blank">Documentation</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 TalentFlow. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Modal system -->
+  <!-- BUG-054: Modal has no focus trap -->
+  <div id="modal-overlay" class="modal-overlay hidden"></div>
+  <div id="modal-container" class="modal-container hidden"></div>
+
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
