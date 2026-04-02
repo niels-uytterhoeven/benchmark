@@ -68,6 +68,7 @@ _DEFAULT_BROWSER_PROVIDER = "deepinfra" if LLM_PROVIDER == "deepinfra" else "ope
 BROWSER_USE_LLM_PROVIDER = os.environ.get("BROWSER_USE_LLM_PROVIDER", _DEFAULT_BROWSER_PROVIDER).strip().lower()
 BROWSER_USE_LLM_MODEL = os.environ.get("BROWSER_USE_LLM_MODEL", ITERATION_MODEL).strip()
 BROWSER_USE_HEADLESS = os.environ.get("BROWSER_USE_HEADLESS", "true").strip().lower() == "true"
+BROWSER_USE_USE_VISION = os.environ.get("BROWSER_USE_USE_VISION", "true").strip().lower() == "true"
 BROWSER_USE_MAX_STEPS = int(os.environ.get("BROWSER_USE_MAX_STEPS", "50"))
 BROWSER_USE_CDP_URL = os.environ.get("BROWSER_USE_CDP_URL", "http://127.0.0.1:9222").strip()
 BROWSER_USE_REMOTE_DEBUGGING_PORT = int(

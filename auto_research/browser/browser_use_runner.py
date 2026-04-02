@@ -32,6 +32,7 @@ from auto_research.config import (
     BROWSER_USE_MAX_STEPS,
     BROWSER_USE_OAUTH2_TOKEN_FILE,
     BROWSER_USE_REMOTE_DEBUGGING_PORT,
+    BROWSER_USE_USE_VISION,
     DEEPINFRA_API_KEY,
     DEEPINFRA_BASE_URL,
 )
@@ -61,8 +62,12 @@ class BrowserUseQAOutput(BaseModel):
 
 
 _LOGIN_INSTRUCTIONS = (
-    "First, click the Login button or the user menu in the header, then log in "
-    "with email test@example.com and password password123."
+    "First, log in to the app: look in the top-right header for a 'Login' button "
+    "(it may say 'Login' or show a user avatar). Click it to open the login modal. "
+    "In the modal, fill the email field with test@example.com and the password field "
+    "with password123, then click the submit/Login button inside the modal. "
+    "Confirm you are logged in by checking the header shows a user name or avatar "
+    "instead of the Login button before proceeding."
 )
 
 SPECIALIST_TASKS: dict[str, str] = {
@@ -282,6 +287,9 @@ def _cdp_browser(cdp_url: str, headless: bool | None = None):
         "--no-first-run",
         "--no-default-browser-check",
         "--disable-background-networking",
+        "--disable-gpu",
+        "--disable-dev-shm-usage",
+        "--disable-software-rasterizer",
         "about:blank",
     ]
     if resolved_headless:
@@ -402,7 +410,7 @@ async def run_browser_use_agent(
     elif _supports_parameter(Agent.__init__, "browser_session"):
         agent_kwargs["browser_session"] = browser
     if _supports_parameter(Agent.__init__, "use_vision"):
-        agent_kwargs["use_vision"] = True
+        agent_kwargs["use_vision"] = BROWSER_USE_USE_VISION
     if _supports_parameter(Agent.__init__, "max_actions_per_step"):
         agent_kwargs["max_actions_per_step"] = 3
     if _supports_parameter(Agent.__init__, "extend_system_message"):
