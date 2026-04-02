@@ -1,0 +1,2738 @@
+[
+  {
+    "id": "BUG-001",
+    "severity": "High",
+    "category": "Form Validation",
+    "issue": "Email validation accepts \"test@\" \u2014 only checks for \"@\" symbol, not a valid domain",
+    "location": "store.js `register()`",
+    "trigger": "Register with email \"test@\" \u2014 accepted as valid",
+    "expected_agents": [
+      "edge_case"
+    ],
+    "matching_file": "js/store.js",
+    "matching_function": "register()",
+    "matching_keywords": [
+      "email",
+      "validation",
+      "accepts",
+      "test",
+      "symbol",
+      "valid",
+      "domain",
+      "register",
+      "accepted"
+    ],
+    "code_evidence": "/* BUG-002: no minimum password length \u2014 accepts single character */"
+  },
+  {
+    "id": "BUG-002",
+    "severity": "Medium",
+    "category": "Form Validation",
+    "issue": "No minimum password length check \u2014 single space accepted as password",
+    "location": "store.js `register()`",
+    "trigger": "Register with password \" \" (single space) \u2014 passes",
+    "expected_agents": [
+      "edge_case"
+    ],
+    "matching_file": "js/store.js",
+    "matching_function": "register()",
+    "matching_keywords": [
+      "minimum",
+      "password",
+      "length",
+      "single",
+      "space",
+      "accepted",
+      "register",
+      "passes"
+    ],
+    "code_evidence": "register: function(name, email, password, confirmPassword) {"
+  },
+  {
+    "id": "BUG-003",
+    "severity": "Medium",
+    "category": "Form Validation",
+    "issue": "Phone number field accepts letters and special characters \u2014 no numeric validation",
+    "location": "store.js `employees.create()`",
+    "trigger": "Create employee with phone \"abc-xyz\" \u2014 accepted",
+    "expected_agents": [
+      "edge_case"
+    ],
+    "matching_file": "js/store.js",
+    "matching_function": "employees.create()",
+    "matching_keywords": [
+      "phone",
+      "number",
+      "field",
+      "accepts",
+      "letters",
+      "special",
+      "characters",
+      "numeric",
+      "validation",
+      "create",
+      "employee",
+      "abc",
+      "xyz",
+      "accepted"
+    ],
+    "code_evidence": "/* BUG-015: Bio has no max length check */"
+  },
+  {
+    "id": "BUG-004",
+    "severity": "High",
+    "category": "Form Validation",
+    "issue": "Salary field accepts negative values (e.g., -50000)",
+    "location": "store.js `employees.create()`",
+    "trigger": "Create employee with salary -50000 \u2014 accepted",
+    "expected_agents": [
+      "edge_case"
+    ],
+    "matching_file": "js/store.js",
+    "matching_function": "employees.create()",
+    "matching_keywords": [
+      "salary",
+      "field",
+      "accepts",
+      "negative",
+      "values",
+      "create",
+      "employee",
+      "accepted"
+    ],
+    "code_evidence": "create: function(data) {"
+  },
+  {
+    "id": "BUG-005",
+    "severity": "Medium",
+    "category": "Form Validation",
+    "issue": "Job closing date can be before posting date \u2014 no date range validation",
+    "location": "store.js `jobs.create()`",
+    "trigger": "Create job with closingDate before postedDate",
+    "expected_agents": [
+      "edge_case"
+    ],
+    "matching_file": "js/store.js",
+    "matching_function": "jobs.create()",
+    "matching_keywords": [
+      "job",
+      "closing",
+      "date",
+      "posting",
+      "range",
+      "validation",
+      "create",
+      "closingdate",
+      "posteddate"
+    ],
+    "code_evidence": "/* BUG-011: no required field validation \u2014 title, departmentId not checked */"
+  },
+  {
+    "id": "BUG-006",
+    "severity": "Low",
+    "category": "Form Validation",
+    "issue": "Employee birth date accepts future dates (employee #5 has birthDate 2030-11-15)",
+    "location": "data.js employee id=5",
+    "trigger": "View employee #5 Elena Vasquez profile",
+    "expected_agents": [],
+    "matching_file": "js/data.js",
+    "matching_function": "",
+    "matching_keywords": [
+      "employee",
+      "birth",
+      "date",
+      "accepts",
+      "future",
+      "dates",
+      "birthdate",
+      "view",
+      "elena",
+      "vasquez",
+      "profile"
+    ],
+    "code_evidence": "{ id: 6,  name: 'Frank Okafor',      email: 'frank.okafor@talentflow.io',    phone: '(555) 101-2006', role: 'Finance Analyst',        departmentId: 6, salary: 95000,  startDate: '2022-06-01', bir"
+  },
+  {
+    "id": "BUG-007",
+    "severity": "Medium",
+    "category": "Form Validation",
+    "issue": "Department name allows whitespace-only string (\"   \") as valid name",
+    "location": "store.js `departments.create()`",
+    "trigger": "Create department with name \"   \" (spaces only)",
+    "expected_agents": [
+      "edge_case"
+    ],
+    "matching_file": "js/store.js",
+    "matching_function": "departments.create()",
+    "matching_keywords": [
+      "department",
+      "name",
+      "allows",
+      "whitespace",
+      "string",
+      "valid",
+      "create",
+      "spaces"
+    ],
+    "code_evidence": "case 'save-department':"
+  },
+  {
+    "id": "BUG-008",
+    "severity": "High",
+    "category": "Form Validation",
+    "issue": "Review rating accepts values > 5 and < 0 \u2014 no bounds checking",
+    "location": "store.js `reviews.create()`",
+    "trigger": "Create review with rating 99 or -3 \u2014 accepted",
+    "expected_agents": [
+      "edge_case"
+    ],
+    "matching_file": "js/store.js",
+    "matching_function": "reviews.create()",
+    "matching_keywords": [
+      "review",
+      "rating",
+      "accepts",
+      "values",
+      "bounds",
+      "checking",
+      "create",
+      "accepted"
+    ],
+    "code_evidence": "/* BUG-032: empty comments accepted (in store) */"
+  },
+  {
+    "id": "BUG-009",
+    "severity": "Medium",
+    "category": "Form Validation",
+    "issue": "Time-off request allows 0 days \u2014 zero-day request can be created",
+    "location": "store.js `timeoff.create()`",
+    "trigger": "Submit time-off request with days = 0",
+    "expected_agents": [
+      "edge_case"
+    ],
+    "matching_file": "js/store.js",
+    "matching_function": "timeoff.create()",
+    "matching_keywords": [
+      "time",
+      "off",
+      "request",
+      "allows",
+      "days",
+      "zero",
+      "day",
+      "created",
+      "submit"
+    ],
+    "code_evidence": "case 'save-timeoff':"
+  },
+  {
+    "id": "BUG-010",
+    "severity": "Low",
+    "category": "Form Validation",
+    "issue": "Training course capacity accepts non-integer values (e.g., 2.5 seats)",
+    "location": "store.js `training.enroll()`",
+    "trigger": "Enroll when capacity comparison allows float",
+    "expected_agents": [],
+    "matching_file": "js/store.js",
+    "matching_function": "training.enroll()",
+    "matching_keywords": [
+      "training",
+      "course",
+      "capacity",
+      "accepts",
+      "non",
+      "integer",
+      "values",
+      "seats",
+      "enroll",
+      "comparison",
+      "allows",
+      "float"
+    ],
+    "code_evidence": "enroll: function(courseId) {"
+  },
+  {
+    "id": "BUG-011",
+    "severity": "High",
+    "category": "Form Validation",
+    "issue": "Required fields not validated on job posting form \u2014 empty title accepted",
+    "location": "app.js `saveJob()`",
+    "trigger": "Click \"Create Job\" with empty title \u2014 job created",
+    "expected_agents": [
+      "edge_case"
+    ],
+    "matching_file": "js/app.js",
+    "matching_function": "saveJob()",
+    "matching_keywords": [
+      "required",
+      "fields",
+      "validated",
+      "job",
+      "posting",
+      "form",
+      "empty",
+      "title",
+      "accepted",
+      "click",
+      "create",
+      "created"
+    ],
+    "code_evidence": "case 'save-job':"
+  },
+  {
+    "id": "BUG-012",
+    "severity": "Medium",
+    "category": "Form Validation",
+    "issue": "Candidate email not validated in application form",
+    "location": "app.js `applyForJob()`",
+    "trigger": "Apply with email \"notanemail\" \u2014 accepted",
+    "expected_agents": [
+      "edge_case"
+    ],
+    "matching_file": "js/app.js",
+    "matching_function": "applyForJob()",
+    "matching_keywords": [
+      "candidate",
+      "email",
+      "validated",
+      "application",
+      "form",
+      "apply",
+      "notanemail",
+      "accepted"
+    ],
+    "code_evidence": "case 'apply-job':"
+  },
+  {
+    "id": "BUG-013",
+    "severity": "Medium",
+    "category": "Form Validation",
+    "issue": "Calendar event end time can be before start time",
+    "location": "store.js `calendar.create()`",
+    "trigger": "Create event with time 14:00, endTime 10:00 \u2014 accepted",
+    "expected_agents": [
+      "edge_case"
+    ],
+    "matching_file": "js/store.js",
+    "matching_function": "calendar.create()",
+    "matching_keywords": [
+      "calendar",
+      "event",
+      "end",
+      "time",
+      "start",
+      "create",
+      "endtime",
+      "accepted"
+    ],
+    "code_evidence": "/* BUG-034: \"Today\" button uses hardcoded date '2024-01-15' instead of new Date() */"
+  },
+  {
+    "id": "BUG-014",
+    "severity": "Medium",
+    "category": "Form Validation",
+    "issue": "Document upload accepts any file extension despite UI saying \"PDF only\"",
+    "location": "app.js `uploadDocument()`",
+    "trigger": "Upload a .exe file \u2014 accepted",
+    "expected_agents": [
+      "edge_case"
+    ],
+    "matching_file": "js/app.js",
+    "matching_function": "uploadDocument()",
+    "matching_keywords": [
+      "document",
+      "upload",
+      "accepts",
+      "file",
+      "extension",
+      "despite",
+      "saying",
+      "pdf",
+      "exe",
+      "accepted"
+    ],
+    "code_evidence": "/* BUG-083: Filename not sanitized (accepts ../../../etc/passwd) */"
+  },
+  {
+    "id": "BUG-015",
+    "severity": "Low",
+    "category": "Form Validation",
+    "issue": "Profile bio field has no max length \u2014 can crash rendering with huge text",
+    "location": "app.js `saveProfile()`",
+    "trigger": "Save bio with 100,000+ characters",
+    "expected_agents": [
+      "edge_case"
+    ],
+    "matching_file": "js/app.js",
+    "matching_function": "saveProfile()",
+    "matching_keywords": [
+      "profile",
+      "bio",
+      "field",
+      "max",
+      "length",
+      "crash",
+      "rendering",
+      "huge",
+      "text",
+      "save",
+      "characters"
+    ],
+    "code_evidence": "case 'save-employee':"
+  },
+  {
+    "id": "BUG-016",
+    "severity": "Critical",
+    "category": "Functional",
+    "issue": "No debounce on \"Create Job\" button \u2014 double-click creates duplicate jobs",
+    "location": "app.js `saveJob()`",
+    "trigger": "Double-click \"Create Job\" rapidly",
+    "expected_agents": [
+      "edge_case"
+    ],
+    "matching_file": "js/app.js",
+    "matching_function": "saveJob()",
+    "matching_keywords": [
+      "debounce",
+      "create",
+      "job",
+      "button",
+      "double",
+      "click",
+      "creates",
+      "duplicate",
+      "jobs",
+      "rapidly"
+    ],
+    "code_evidence": "/* BUG-011: No required field validation before Store.jobs.create() */"
+  },
+  {
+    "id": "BUG-017",
+    "severity": "Medium",
+    "category": "Functional",
+    "issue": "\"Reset Filters\" only resets department filter, not status or search text",
+    "location": "app.js `resetFilters()`",
+    "trigger": "Apply status + department + search filters, click \"Reset\" \u2014 status and search persist",
+    "expected_agents": [
+      "edge_case"
+    ],
+    "matching_file": "js/app.js",
+    "matching_function": "resetFilters()",
+    "matching_keywords": [
+      "reset",
+      "filters",
+      "resets",
+      "department",
+      "filter",
+      "status",
+      "search",
+      "text",
+      "apply",
+      "click",
+      "persist"
+    ],
+    "code_evidence": "this.currentFilters.department = 'all';"
+  },
+  {
+    "id": "BUG-018",
+    "severity": "High",
+    "category": "Functional",
+    "issue": "Deleting a department doesn't reassign employees \u2014 records become orphaned",
+    "location": "store.js `departments.delete()`",
+    "trigger": "Delete \"Marketing\" department \u2014 employees still reference departmentId 3",
+    "expected_agents": [],
+    "matching_file": "js/store.js",
+    "matching_function": "departments.delete()",
+    "matching_keywords": [
+      "deleting",
+      "department",
+      "doesn",
+      "reassign",
+      "employees",
+      "records",
+      "become",
+      "orphaned",
+      "delete",
+      "marketing",
+      "reference",
+      "departmentid"
+    ],
+    "code_evidence": "case 'delete-department':"
+  },
+  {
+    "id": "BUG-019",
+    "severity": "High",
+    "category": "Accessibility",
+    "issue": "`outline: none` applied to all nav links, buttons \u2014 no visible keyboard focus ring",
+    "location": "style.css multiple selectors",
+    "trigger": "Tab through navigation with keyboard \u2014 no focus indicator visible",
+    "expected_agents": [
+      "accessibility"
+    ],
+    "matching_file": "style.css",
+    "matching_function": "",
+    "matching_keywords": [
+      "outline",
+      "none",
+      "applied",
+      "nav",
+      "links",
+      "buttons",
+      "visible",
+      "keyboard",
+      "focus",
+      "ring",
+      "tab",
+      "through",
+      "navigation",
+      "indicator"
+    ],
+    "code_evidence": ".nav-item {"
+  },
+  {
+    "id": "BUG-020",
+    "severity": "Medium",
+    "category": "Functional",
+    "issue": "Pagination shows wrong total count after filtering \u2014 uses unfiltered total",
+    "location": "app.js pagination handler",
+    "trigger": "Filter employees by department, check \"Showing X of Y\" \u2014 Y is total, not filtered count",
+    "expected_agents": [],
+    "matching_file": "js/app.js",
+    "matching_function": "",
+    "matching_keywords": [
+      "pagination",
+      "wrong",
+      "total",
+      "count",
+      "filtering",
+      "uses",
+      "unfiltered",
+      "filter",
+      "employees",
+      "department",
+      "showing",
+      "filtered"
+    ],
+    "code_evidence": "case 'paginate':"
+  },
+  {
+    "id": "BUG-021",
+    "severity": "High",
+    "category": "Functional",
+    "issue": "\"Select All\" checkbox selects ALL employees, ignoring current filter",
+    "location": "store.js `employees.selectAll()`",
+    "trigger": "Filter by department, click \"Select All\" \u2014 hidden employees also selected",
+    "expected_agents": [
+      "edge_case"
+    ],
+    "matching_file": "js/store.js",
+    "matching_function": "employees.selectAll()",
+    "matching_keywords": [
+      "select",
+      "checkbox",
+      "selects",
+      "employees",
+      "ignoring",
+      "current",
+      "filter",
+      "department",
+      "click",
+      "hidden",
+      "also",
+      "selected"
+    ],
+    "code_evidence": "case 'select-all-employees':"
+  },
+  {
+    "id": "BUG-022",
+    "severity": "Critical",
+    "category": "Functional",
+    "issue": "Bulk delete employees has no confirmation dialog \u2014 immediately deletes",
+    "location": "app.js `bulk-delete-employees`",
+    "trigger": "Select employees, click \"Bulk Delete\" \u2014 deleted without confirm",
+    "expected_agents": [
+      "edge_case"
+    ],
+    "matching_file": "js/app.js",
+    "matching_function": "bulk-delete-employees",
+    "matching_keywords": [
+      "bulk",
+      "delete",
+      "employees",
+      "confirmation",
+      "dialog",
+      "immediately",
+      "deletes",
+      "select",
+      "click",
+      "deleted",
+      "confirm"
+    ],
+    "code_evidence": "case 'bulk-delete-employees':"
+  },
+  {
+    "id": "BUG-023",
+    "severity": "High",
+    "category": "Functional",
+    "issue": "\"Cancel\" button on edit forms saves changes instead of discarding",
+    "location": "store.js `employees.update()`",
+    "trigger": "Edit employee, change name, click \"Cancel\" \u2014 name is saved",
+    "expected_agents": [
+      "edge_case"
+    ],
+    "matching_file": "js/store.js",
+    "matching_function": "employees.update()",
+    "matching_keywords": [
+      "cancel",
+      "button",
+      "edit",
+      "forms",
+      "saves",
+      "changes",
+      "discarding",
+      "employee",
+      "change",
+      "name",
+      "click",
+      "saved"
+    ],
+    "code_evidence": "update: function(id, data) {"
+  },
+  {
+    "id": "BUG-024",
+    "severity": "Medium",
+    "category": "Functional",
+    "issue": "Search query persists across page navigation \u2014 stale search on new pages",
+    "location": "app.js `route()`",
+    "trigger": "Search on Employees page, navigate to Jobs \u2014 search text still active",
+    "expected_agents": [
+      "error_recovery"
+    ],
+    "matching_file": "js/app.js",
+    "matching_function": "route()",
+    "matching_keywords": [
+      "search",
+      "query",
+      "persists",
+      "across",
+      "page",
+      "navigation",
+      "stale",
+      "new",
+      "pages",
+      "employees",
+      "navigate",
+      "jobs",
+      "text",
+      "active"
+    ],
+    "code_evidence": "/* BUG-065: document.title is never updated \u2014 stays as initial \"TalentFlow - HR Management\" */"
+  },
+  {
+    "id": "BUG-025",
+    "severity": "High",
+    "category": "Functional",
+    "issue": "Interview scheduling allows double-booking the same time slot",
+    "location": "store.js `candidates.scheduleInterview()`",
+    "trigger": "Schedule two candidates at same date/time \u2014 both accepted",
+    "expected_agents": [
+      "edge_case"
+    ],
+    "matching_file": "js/store.js",
+    "matching_function": "candidates.scheduleInterview()",
+    "matching_keywords": [
+      "interview",
+      "scheduling",
+      "allows",
+      "double",
+      "booking",
+      "same",
+      "time",
+      "slot",
+      "schedule",
+      "two",
+      "candidates",
+      "date",
+      "both",
+      "accepted"
+    ],
+    "code_evidence": "scheduleInterview: function(candidateId, date, time) {"
+  },
+  {
+    "id": "BUG-026",
+    "severity": "Low",
+    "category": "Functional",
+    "issue": "File upload progress bar stays at 100% after upload \u2014 never resets",
+    "location": "app.js `uploadDocument()`",
+    "trigger": "Upload a file, then try uploading another \u2014 progress bar already at 100%",
+    "expected_agents": [],
+    "matching_file": "js/app.js",
+    "matching_function": "uploadDocument()",
+    "matching_keywords": [
+      "file",
+      "upload",
+      "progress",
+      "bar",
+      "stays",
+      "never",
+      "resets",
+      "then",
+      "try",
+      "uploading",
+      "another",
+      "already"
+    ],
+    "code_evidence": "case 'upload-document':"
+  },
+  {
+    "id": "BUG-027",
+    "severity": "Medium",
+    "category": "Functional",
+    "issue": "\"Mark all as read\" marks future/scheduled notifications too",
+    "location": "store.js `notifications.markAllRead()`",
+    "trigger": "Click \"Mark all read\" \u2014 even future notifications marked",
+    "expected_agents": [
+      "error_recovery"
+    ],
+    "matching_file": "js/store.js",
+    "matching_function": "notifications.markAllRead()",
+    "matching_keywords": [
+      "mark",
+      "read",
+      "marks",
+      "future",
+      "scheduled",
+      "notifications",
+      "too",
+      "click",
+      "even",
+      "marked"
+    ],
+    "code_evidence": "case 'mark-notification-read':"
+  },
+  {
+    "id": "BUG-028",
+    "severity": "Low",
+    "category": "Functional",
+    "issue": "Export CSV generates empty file when no data matches current filter",
+    "location": "app.js `exportCSV()`",
+    "trigger": "Apply filter with no results, click \"Export CSV\" \u2014 downloads file with only headers",
+    "expected_agents": [],
+    "matching_file": "js/app.js",
+    "matching_function": "exportCSV()",
+    "matching_keywords": [
+      "export",
+      "csv",
+      "generates",
+      "empty",
+      "file",
+      "data",
+      "matches",
+      "current",
+      "filter",
+      "apply",
+      "results",
+      "click",
+      "downloads",
+      "headers"
+    ],
+    "code_evidence": "case 'export-csv':"
+  },
+  {
+    "id": "BUG-029",
+    "severity": "Medium",
+    "category": "Functional",
+    "issue": "Delete actions have no undo \u2014 items permanently removed with no recovery",
+    "location": "app.js delete handlers",
+    "trigger": "Delete any document/employee \u2014 gone forever, no undo",
+    "expected_agents": [
+      "edge_case"
+    ],
+    "matching_file": "js/app.js",
+    "matching_function": "",
+    "matching_keywords": [
+      "delete",
+      "actions",
+      "have",
+      "undo",
+      "items",
+      "permanently",
+      "removed",
+      "recovery",
+      "document",
+      "employee",
+      "gone",
+      "forever"
+    ],
+    "code_evidence": "case 'delete-document':"
+  },
+  {
+    "id": "BUG-030",
+    "severity": "Medium",
+    "category": "Accessibility",
+    "issue": "Tab navigation skips the submit button in settings (tabindex=-1)",
+    "location": "app.js settings tab handler",
+    "trigger": "Tab through settings form \u2014 submit button is skipped",
+    "expected_agents": [
+      "accessibility"
+    ],
+    "matching_file": "js/app.js",
+    "matching_function": "",
+    "matching_keywords": [
+      "tab",
+      "navigation",
+      "skips",
+      "submit",
+      "button",
+      "settings",
+      "tabindex",
+      "through",
+      "form",
+      "skipped"
+    ],
+    "code_evidence": "/* BUG-055: Custom tabs don't respond to arrow keys */"
+  },
+  {
+    "id": "BUG-031",
+    "severity": "Low",
+    "category": "Functional",
+    "issue": "Job form draft not auto-saved \u2014 navigating away loses all entered data",
+    "location": "render.js `jobForm()`",
+    "trigger": "Start filling job form, click sidebar link \u2014 all data lost",
+    "expected_agents": [
+      "error_recovery"
+    ],
+    "matching_file": "js/render.js",
+    "matching_function": "jobForm()",
+    "matching_keywords": [
+      "job",
+      "form",
+      "draft",
+      "auto",
+      "saved",
+      "navigating",
+      "away",
+      "loses",
+      "entered",
+      "data",
+      "start",
+      "filling",
+      "click",
+      "sidebar",
+      "link",
+      "lost"
+    ],
+    "code_evidence": "jobForm: function(id) {"
+  },
+  {
+    "id": "BUG-032",
+    "severity": "Medium",
+    "category": "Form Validation",
+    "issue": "Review submission allows empty comments field",
+    "location": "store.js `reviews.create()`",
+    "trigger": "Create review with blank comments \u2014 accepted",
+    "expected_agents": [
+      "edge_case"
+    ],
+    "matching_file": "js/store.js",
+    "matching_function": "reviews.create()",
+    "matching_keywords": [
+      "review",
+      "submission",
+      "allows",
+      "empty",
+      "comments",
+      "field",
+      "create",
+      "blank",
+      "accepted"
+    ],
+    "code_evidence": "case 'save-review':"
+  },
+  {
+    "id": "BUG-033",
+    "severity": "Medium",
+    "category": "Functional",
+    "issue": "Payroll calculation doesn't prorate for mid-month joiners \u2014 full salary shown",
+    "location": "data.js payroll records",
+    "trigger": "View payroll for employee who started mid-month \u2014 full monthly salary displayed",
+    "expected_agents": [
+      "error_recovery"
+    ],
+    "matching_file": "js/data.js",
+    "matching_function": "",
+    "matching_keywords": [
+      "payroll",
+      "calculation",
+      "doesn",
+      "prorate",
+      "mid",
+      "month",
+      "joiners",
+      "full",
+      "salary",
+      "shown",
+      "view",
+      "employee",
+      "who",
+      "started",
+      "monthly",
+      "displayed"
+    ],
+    "code_evidence": "{ employeeId: 15, baseSalary: 5666.67,  bonus: 0,    deductions: 1400, netPay: 4266.67,  period: 'March 2024', startDate: '2024-01-08' },"
+  },
+  {
+    "id": "BUG-034",
+    "severity": "High",
+    "category": "Functional",
+    "issue": "Calendar \"Today\" button navigates to hardcoded date (2024-01-15) instead of actual today",
+    "location": "app.js `today-calendar` handler",
+    "trigger": "Click \"Today\" on calendar \u2014 jumps to January 2024",
+    "expected_agents": [
+      "error_recovery"
+    ],
+    "matching_file": "js/app.js",
+    "matching_function": "today-calendar",
+    "matching_keywords": [
+      "calendar",
+      "today",
+      "button",
+      "navigates",
+      "hardcoded",
+      "date",
+      "actual",
+      "click",
+      "jumps",
+      "january"
+    ],
+    "code_evidence": "case 'save-event':"
+  },
+  {
+    "id": "BUG-035",
+    "severity": "Medium",
+    "category": "Functional",
+    "issue": "Training enrollment counter doesn't update after un-enrollment",
+    "location": "app.js `unenroll-training`",
+    "trigger": "Enroll then unenroll from course \u2014 enrolled count unchanged in UI",
+    "expected_agents": [
+      "error_recovery"
+    ],
+    "matching_file": "js/app.js",
+    "matching_function": "unenroll-training",
+    "matching_keywords": [
+      "training",
+      "enrollment",
+      "counter",
+      "doesn",
+      "update",
+      "enroll",
+      "then",
+      "unenroll",
+      "course",
+      "enrolled",
+      "count",
+      "unchanged"
+    ],
+    "code_evidence": "case 'enroll-training':"
+  },
+  {
+    "id": "BUG-036",
+    "severity": "Medium",
+    "category": "UI/Visual",
+    "issue": "Long job title overflows card and table row containers \u2014 no text truncation/ellipsis",
+    "location": "render.js `jobs()`, data.js",
+    "trigger": "View Jobs page \u2014 the long title overflows its container",
+    "expected_agents": [
+      "happy_path"
+    ],
+    "matching_file": "js/render.js",
+    "matching_function": "jobs()",
+    "matching_keywords": [
+      "long",
+      "job",
+      "title",
+      "overflows",
+      "card",
+      "table",
+      "row",
+      "containers",
+      "text",
+      "truncation",
+      "ellipsis",
+      "view",
+      "jobs",
+      "page",
+      "container"
+    ],
+    "code_evidence": "html += '<td><a href=\"#/jobs/' + job.id + '\" class=\"link\">' + job.title + '</a></td>';"
+  },
+  {
+    "id": "BUG-037",
+    "severity": "High",
+    "category": "UI/Visual",
+    "issue": "Employee avatar shows \"undefined\" in img src when avatarUrl is null",
+    "location": "render.js `employeeDetail()`, data.js id=8",
+    "trigger": "View employee #8 Henry Walsh \u2014 avatar image shows \"undefined\"",
+    "expected_agents": [
+      "happy_path"
+    ],
+    "matching_file": "js/render.js",
+    "matching_function": "employeeDetail()",
+    "matching_keywords": [
+      "employee",
+      "avatar",
+      "undefined",
+      "img",
+      "src",
+      "avatarurl",
+      "null",
+      "view",
+      "henry",
+      "walsh",
+      "image"
+    ],
+    "code_evidence": "html += '<img src=\"' + emp.avatarUrl + '\" class=\"avatar-img\">';"
+  },
+  {
+    "id": "BUG-038",
+    "severity": "Low",
+    "category": "UI/Visual",
+    "issue": "Notification dates have inconsistent formats \u2014 ISO, long, short mixed",
+    "location": "data.js notifications, render.js",
+    "trigger": "View Notifications page \u2014 dates show as \"2024-03-15\", \"March 16, 2024\", \"Mar 18 2024\"",
+    "expected_agents": [
+      "happy_path"
+    ],
+    "matching_file": "js/render.js",
+    "matching_function": "",
+    "matching_keywords": [
+      "notification",
+      "dates",
+      "have",
+      "inconsistent",
+      "formats",
+      "iso",
+      "long",
+      "short",
+      "mixed",
+      "view",
+      "notifications",
+      "page",
+      "show",
+      "march",
+      "mar"
+    ],
+    "code_evidence": "html += '<span class=\"notif-date\">' + n.date + '</span>';"
+  },
+  {
+    "id": "BUG-039",
+    "severity": "Medium",
+    "category": "UI/Visual",
+    "issue": "No empty state message for employee list when filter returns zero results",
+    "location": "render.js `employees()`",
+    "trigger": "Filter employees by non-existent department \u2014 blank page, no \"No results\" message",
+    "expected_agents": [],
+    "matching_file": "js/render.js",
+    "matching_function": "employees()",
+    "matching_keywords": [
+      "empty",
+      "state",
+      "message",
+      "employee",
+      "list",
+      "filter",
+      "returns",
+      "zero",
+      "results",
+      "employees",
+      "non",
+      "existent",
+      "department",
+      "blank",
+      "page"
+    ],
+    "code_evidence": "/* BUG-093: document.querySelectorAll called inside the render function (unnecessary DOM query) */"
+  },
+  {
+    "id": "BUG-040",
+    "severity": "High",
+    "category": "UI/Visual",
+    "issue": "Invalid employee/department ID shows infinite loading spinner \u2014 no error message",
+    "location": "render.js `employeeDetail()`, `departmentDetail()`",
+    "trigger": "Navigate to #/employees/999 \u2014 spinner never stops",
+    "expected_agents": [
+      "happy_path",
+      "error_recovery"
+    ],
+    "matching_file": "js/render.js",
+    "matching_function": "employeeDetail()",
+    "matching_keywords": [
+      "invalid",
+      "employee",
+      "department",
+      "infinite",
+      "loading",
+      "spinner",
+      "error",
+      "message",
+      "navigate",
+      "employees",
+      "never",
+      "stops"
+    ],
+    "code_evidence": "if (!emp) {"
+  },
+  {
+    "id": "BUG-041",
+    "severity": "Medium",
+    "category": "UI/Visual",
+    "issue": "Toast notifications overlap the sticky top header bar",
+    "location": "style.css `.toast-container`",
+    "trigger": "Trigger any toast while scrolled to top \u2014 toast overlaps header",
+    "expected_agents": [
+      "viewport"
+    ],
+    "matching_file": "style.css",
+    "matching_function": ".toast-container",
+    "matching_keywords": [
+      "toast",
+      "notifications",
+      "overlap",
+      "sticky",
+      "top",
+      "header",
+      "bar",
+      "trigger",
+      "while",
+      "scrolled",
+      "overlaps"
+    ],
+    "code_evidence": ".toast-container {"
+  },
+  {
+    "id": "BUG-042",
+    "severity": "Low",
+    "category": "UI/Visual",
+    "issue": "Status badges use same green color for \"Active\" and \"Approved\" \u2014 visually confusing",
+    "location": "render.js candidate/timeoff views",
+    "trigger": "View candidates with \"screening\"/\"interview\" status \u2014 same color",
+    "expected_agents": [],
+    "matching_file": "js/render.js",
+    "matching_function": "",
+    "matching_keywords": [
+      "status",
+      "badges",
+      "use",
+      "same",
+      "green",
+      "color",
+      "active",
+      "approved",
+      "visually",
+      "confusing",
+      "view",
+      "candidates",
+      "screening",
+      "interview"
+    ],
+    "code_evidence": "html += '<td><span class=\"badge badge-' + Render._candidateStatusColor(c.status) + '\">' + c.status + '</span></td>';"
+  },
+  {
+    "id": "BUG-043",
+    "severity": "Medium",
+    "category": "UI/Visual",
+    "issue": "Modal doesn't lock body scroll \u2014 background content scrolls behind modal",
+    "location": "style.css modal styles",
+    "trigger": "Open login modal on a long page \u2014 background still scrollable",
+    "expected_agents": [
+      "viewport"
+    ],
+    "matching_file": "style.css",
+    "matching_function": "",
+    "matching_keywords": [
+      "modal",
+      "doesn",
+      "lock",
+      "body",
+      "scroll",
+      "background",
+      "content",
+      "scrolls",
+      "behind",
+      "open",
+      "login",
+      "long",
+      "page",
+      "scrollable"
+    ],
+    "code_evidence": "/* No .modal-open class definition that sets body overflow:hidden */"
+  },
+  {
+    "id": "BUG-044",
+    "severity": "Medium",
+    "category": "UI/Visual",
+    "issue": "Chart tooltip shows \"[object Object]\" instead of formatted data",
+    "location": "render.js `dashboard()`, `reports()`",
+    "trigger": "Hover over chart bars on dashboard \u2014 tooltip shows [object Object]",
+    "expected_agents": [
+      "happy_path"
+    ],
+    "matching_file": "js/render.js",
+    "matching_function": "dashboard()",
+    "matching_keywords": [
+      "chart",
+      "tooltip",
+      "object",
+      "formatted",
+      "data",
+      "hover",
+      "over",
+      "bars",
+      "dashboard"
+    ],
+    "code_evidence": "/* BUG-063: Chart has no text alternative, just colored bars */"
+  },
+  {
+    "id": "BUG-045",
+    "severity": "Low",
+    "category": "UI/Visual",
+    "issue": "Notification badge count shows NaN when a notification has undefined read status",
+    "location": "data.js notification id=15, render.js",
+    "trigger": "Check notification badge \u2014 may show NaN",
+    "expected_agents": [
+      "happy_path"
+    ],
+    "matching_file": "js/render.js",
+    "matching_function": "",
+    "matching_keywords": [
+      "notification",
+      "badge",
+      "count",
+      "nan",
+      "undefined",
+      "read",
+      "status",
+      "may",
+      "show"
+    ],
+    "code_evidence": "var count = Store.notifications.getUnreadCount();"
+  },
+  {
+    "id": "BUG-046",
+    "severity": "Low",
+    "category": "UI/Visual",
+    "issue": "Table header misaligned with columns when scrolling horizontally",
+    "location": "style.css `.data-table thead`",
+    "trigger": "Scroll payroll table horizontally \u2014 header columns shift",
+    "expected_agents": [
+      "viewport"
+    ],
+    "matching_file": "style.css",
+    "matching_function": ".data-table thead",
+    "matching_keywords": [
+      "table",
+      "header",
+      "misaligned",
+      "columns",
+      "scrolling",
+      "horizontally",
+      "scroll",
+      "payroll",
+      "shift"
+    ],
+    "code_evidence": ".data-table thead th {"
+  },
+  {
+    "id": "BUG-047",
+    "severity": "Medium",
+    "category": "UI/Visual",
+    "issue": "Review star rating truncates decimals \u2014 3.5 shows as 3 stars",
+    "location": "render.js `reviews()`, `reviewDetail()`",
+    "trigger": "View reviews \u2014 4.5 rating shows as 4 stars",
+    "expected_agents": [
+      "happy_path"
+    ],
+    "matching_file": "js/render.js",
+    "matching_function": "reviews()",
+    "matching_keywords": [
+      "review",
+      "star",
+      "rating",
+      "truncates",
+      "decimals",
+      "stars",
+      "view",
+      "reviews"
+    ],
+    "code_evidence": "var fullStars = Math.floor(rev.rating);"
+  },
+  {
+    "id": "BUG-048",
+    "severity": "Low",
+    "category": "UI/Visual",
+    "issue": "Department color dot disappears on card hover",
+    "location": "style.css `.card:hover .dept-color-dot`",
+    "trigger": "Hover over department card \u2014 color indicator vanishes",
+    "expected_agents": [],
+    "matching_file": "style.css",
+    "matching_function": ".card:hover .dept-color-dot",
+    "matching_keywords": [
+      "department",
+      "color",
+      "dot",
+      "disappears",
+      "card",
+      "hover",
+      "over",
+      "indicator",
+      "vanishes"
+    ],
+    "code_evidence": ".card:hover .dept-color-dot { background: transparent; }"
+  },
+  {
+    "id": "BUG-049",
+    "severity": "Low",
+    "category": "UI/Visual",
+    "issue": "Breadcrumb shows raw hash route instead of page name",
+    "location": "render.js `calendar()`, `reports()`",
+    "trigger": "Visit Calendar \u2014 breadcrumb shows \"#/calendar\"",
+    "expected_agents": [],
+    "matching_file": "js/render.js",
+    "matching_function": "calendar()",
+    "matching_keywords": [
+      "breadcrumb",
+      "raw",
+      "hash",
+      "route",
+      "page",
+      "name",
+      "visit",
+      "calendar"
+    ],
+    "code_evidence": "html += '<div class=\"breadcrumb\">' + window.location.hash + '</div>';"
+  },
+  {
+    "id": "BUG-050",
+    "severity": "Medium",
+    "category": "UI/Visual",
+    "issue": "No print styles defined \u2014 page prints with sidebar, modals, and all UI chrome",
+    "location": "style.css (absence)",
+    "trigger": "Print any page \u2014 sidebar, header all included in print",
+    "expected_agents": [],
+    "matching_file": "style.css",
+    "matching_function": "",
+    "matching_keywords": [
+      "print",
+      "styles",
+      "defined",
+      "page",
+      "prints",
+      "sidebar",
+      "modals",
+      "chrome",
+      "header",
+      "included"
+    ],
+    "code_evidence": "/* ========= 27. Responsive ========= */"
+  },
+  {
+    "id": "BUG-051",
+    "severity": "High",
+    "category": "Accessibility",
+    "issue": "All form inputs use placeholder text only \u2014 no associated `<label>` elements",
+    "location": "render.js all form methods",
+    "trigger": "Inspect any form with screen reader or DevTools",
+    "expected_agents": [
+      "accessibility"
+    ],
+    "matching_file": "js/render.js",
+    "matching_function": "",
+    "matching_keywords": [
+      "form",
+      "inputs",
+      "use",
+      "placeholder",
+      "text",
+      "associated",
+      "label",
+      "elements",
+      "inspect",
+      "screen",
+      "reader",
+      "devtools"
+    ],
+    "code_evidence": "html += '<div class=\"filter-bar\">';"
+  },
+  {
+    "id": "BUG-052",
+    "severity": "Medium",
+    "category": "Accessibility",
+    "issue": "Multiple images and icons missing `alt` attributes",
+    "location": "render.js throughout",
+    "trigger": "Inspect employee avatars, course images with screen reader",
+    "expected_agents": [
+      "accessibility"
+    ],
+    "matching_file": "js/render.js",
+    "matching_function": "",
+    "matching_keywords": [
+      "multiple",
+      "images",
+      "icons",
+      "missing",
+      "alt",
+      "attributes",
+      "inspect",
+      "employee",
+      "avatars",
+      "course",
+      "screen",
+      "reader"
+    ],
+    "code_evidence": "html += '<img src=\"data:image/svg+xml,\" class=\"detail-decoration\">';"
+  },
+  {
+    "id": "BUG-053",
+    "severity": "Medium",
+    "category": "Accessibility",
+    "issue": "Status indicators are color-only \u2014 no icon or text shape alternative",
+    "location": "render.js badge rendering",
+    "trigger": "View status badges with color blindness \u2014 indistinguishable",
+    "expected_agents": [
+      "accessibility"
+    ],
+    "matching_file": "js/render.js",
+    "matching_function": "",
+    "matching_keywords": [
+      "status",
+      "indicators",
+      "color",
+      "icon",
+      "text",
+      "shape",
+      "alternative",
+      "view",
+      "badges",
+      "blindness",
+      "indistinguishable"
+    ],
+    "code_evidence": "html += '<td><span class=\"badge badge-' + (job.status === 'open' ? 'green' : job.status === 'closed' ? 'red' : 'yellow') + '\">' + job.status + '</span></td>';"
+  },
+  {
+    "id": "BUG-054",
+    "severity": "High",
+    "category": "Accessibility",
+    "issue": "Modal has no focus trap \u2014 Tab key cycles through elements behind the modal",
+    "location": "index.html modal, app.js `showModal()`",
+    "trigger": "Open login modal, press Tab repeatedly \u2014 focus leaves modal",
+    "expected_agents": [
+      "accessibility"
+    ],
+    "matching_file": "js/app.js",
+    "matching_function": "showModal()",
+    "matching_keywords": [
+      "modal",
+      "focus",
+      "trap",
+      "tab",
+      "key",
+      "cycles",
+      "through",
+      "elements",
+      "behind",
+      "open",
+      "login",
+      "press",
+      "repeatedly",
+      "leaves"
+    ],
+    "code_evidence": "showModal: function(type, data) {"
+  },
+  {
+    "id": "BUG-055",
+    "severity": "High",
+    "category": "Accessibility",
+    "issue": "Custom tab widget not keyboard navigable \u2014 no arrow key support",
+    "location": "render.js `settings()`, app.js",
+    "trigger": "Settings page tabs \u2014 arrow keys don't switch tabs",
+    "expected_agents": [
+      "accessibility"
+    ],
+    "matching_file": "js/app.js",
+    "matching_function": "settings()",
+    "matching_keywords": [
+      "custom",
+      "tab",
+      "widget",
+      "keyboard",
+      "navigable",
+      "arrow",
+      "key",
+      "support",
+      "settings",
+      "page",
+      "tabs",
+      "keys",
+      "don",
+      "switch"
+    ],
+    "code_evidence": "case 'tab-change':"
+  },
+  {
+    "id": "BUG-056",
+    "severity": "Medium",
+    "category": "Accessibility",
+    "issue": "ARIA roles missing on dynamic content areas \u2014 no role=\"form\", role=\"main\"",
+    "location": "render.js form and content areas",
+    "trigger": "Inspect rendered forms \u2014 no ARIA role attributes",
+    "expected_agents": [
+      "accessibility"
+    ],
+    "matching_file": "js/render.js",
+    "matching_function": "",
+    "matching_keywords": [
+      "aria",
+      "roles",
+      "missing",
+      "dynamic",
+      "content",
+      "areas",
+      "role",
+      "form",
+      "main",
+      "inspect",
+      "rendered",
+      "forms",
+      "attributes"
+    ],
+    "code_evidence": "html += '<div class=\"form-card\">';"
+  },
+  {
+    "id": "BUG-057",
+    "severity": "High",
+    "category": "Accessibility",
+    "issue": "Skip navigation link missing \u2014 keyboard users must tab through entire sidebar",
+    "location": "index.html",
+    "trigger": "Press Tab on page load \u2014 no \"Skip to content\" link",
+    "expected_agents": [
+      "accessibility"
+    ],
+    "matching_file": "index.html",
+    "matching_function": "",
+    "matching_keywords": [
+      "skip",
+      "navigation",
+      "link",
+      "missing",
+      "keyboard",
+      "users",
+      "must",
+      "tab",
+      "through",
+      "entire",
+      "sidebar",
+      "press",
+      "page",
+      "load",
+      "content"
+    ],
+    "code_evidence": ""
+  },
+  {
+    "id": "BUG-058",
+    "severity": "Medium",
+    "category": "Accessibility",
+    "issue": "Table headers not properly associated with data cells \u2014 no `scope` attribute",
+    "location": "render.js all table renders",
+    "trigger": "Inspect data tables \u2014 `<th>` elements missing `scope=\"col\"`",
+    "expected_agents": [
+      "accessibility"
+    ],
+    "matching_file": "js/render.js",
+    "matching_function": "",
+    "matching_keywords": [
+      "table",
+      "headers",
+      "properly",
+      "associated",
+      "data",
+      "cells",
+      "scope",
+      "attribute",
+      "inspect",
+      "tables",
+      "elements",
+      "missing",
+      "col"
+    ],
+    "code_evidence": "html += '<div class=\"card\">';"
+  },
+  {
+    "id": "BUG-059",
+    "severity": "Medium",
+    "category": "Accessibility",
+    "issue": "Error messages not announced to screen readers \u2014 no `aria-live` region",
+    "location": "render.js `settings()`",
+    "trigger": "Trigger validation error \u2014 screen reader doesn't announce",
+    "expected_agents": [
+      "accessibility"
+    ],
+    "matching_file": "js/render.js",
+    "matching_function": "settings()",
+    "matching_keywords": [
+      "error",
+      "messages",
+      "announced",
+      "screen",
+      "readers",
+      "aria",
+      "live",
+      "region",
+      "trigger",
+      "validation",
+      "reader",
+      "doesn",
+      "announce"
+    ],
+    "code_evidence": "html += '<div id=\"security-error\" class=\"error-message\"></div>';"
+  },
+  {
+    "id": "BUG-060",
+    "severity": "Low",
+    "category": "Accessibility",
+    "issue": "Decorative icons and star symbols not hidden from screen readers \u2014 missing `aria-hidden`",
+    "location": "render.js throughout",
+    "trigger": "Screen reader announces decorative stars and checkmarks",
+    "expected_agents": [
+      "accessibility"
+    ],
+    "matching_file": "js/render.js",
+    "matching_function": "",
+    "matching_keywords": [
+      "decorative",
+      "icons",
+      "star",
+      "symbols",
+      "hidden",
+      "screen",
+      "readers",
+      "missing",
+      "aria",
+      "reader",
+      "announces",
+      "stars",
+      "checkmarks"
+    ],
+    "code_evidence": "for (var s = 1; s <= 5; s++) {"
+  },
+  {
+    "id": "BUG-061",
+    "severity": "Medium",
+    "category": "Accessibility",
+    "issue": "Focus order illogical on calendar and settings pages \u2014 DOM order doesn't match visual",
+    "location": "render.js `calendar()`, `settings()`",
+    "trigger": "Tab through calendar \u2014 focus hits grid before nav buttons",
+    "expected_agents": [
+      "accessibility"
+    ],
+    "matching_file": "js/render.js",
+    "matching_function": "calendar()",
+    "matching_keywords": [
+      "focus",
+      "order",
+      "illogical",
+      "calendar",
+      "settings",
+      "pages",
+      "dom",
+      "doesn",
+      "match",
+      "visual",
+      "tab",
+      "through",
+      "hits",
+      "grid",
+      "nav",
+      "buttons"
+    ],
+    "code_evidence": "/* Calendar grid first, then nav buttons (visual order reversed via CSS) */"
+  },
+  {
+    "id": "BUG-062",
+    "severity": "Medium",
+    "category": "Accessibility",
+    "issue": "Custom time picker widget not accessible \u2014 no ARIA attributes or keyboard support",
+    "location": "render.js `reviewForm()`, style.css",
+    "trigger": "Try to use rating/time widgets with keyboard only",
+    "expected_agents": [
+      "accessibility"
+    ],
+    "matching_file": "js/render.js",
+    "matching_function": "reviewForm()",
+    "matching_keywords": [
+      "custom",
+      "time",
+      "picker",
+      "widget",
+      "accessible",
+      "aria",
+      "attributes",
+      "keyboard",
+      "support",
+      "try",
+      "use",
+      "rating",
+      "widgets"
+    ],
+    "code_evidence": ".time-picker { position: relative; }"
+  },
+  {
+    "id": "BUG-063",
+    "severity": "High",
+    "category": "Accessibility",
+    "issue": "Chart/report data only in visual format \u2014 no text alternative or aria description",
+    "location": "render.js `dashboard()`, `reports()`",
+    "trigger": "Screen reader can't access any chart data",
+    "expected_agents": [
+      "accessibility"
+    ],
+    "matching_file": "js/render.js",
+    "matching_function": "dashboard()",
+    "matching_keywords": [
+      "chart",
+      "report",
+      "data",
+      "visual",
+      "format",
+      "text",
+      "alternative",
+      "aria",
+      "description",
+      "screen",
+      "reader",
+      "access"
+    ],
+    "code_evidence": "html += '<div class=\"section-header\"><h2>Hiring Overview</h2></div>';"
+  },
+  {
+    "id": "BUG-064",
+    "severity": "Medium",
+    "category": "Accessibility",
+    "issue": "Autocomplete suggestions dropdown not keyboard accessible",
+    "location": "app.js, style.css",
+    "trigger": "Type in search, suggestions appear but can't be selected with keyboard",
+    "expected_agents": [
+      "accessibility"
+    ],
+    "matching_file": "js/app.js",
+    "matching_function": "",
+    "matching_keywords": [
+      "autocomplete",
+      "suggestions",
+      "dropdown",
+      "keyboard",
+      "accessible",
+      "type",
+      "search",
+      "appear",
+      "selected"
+    ],
+    "code_evidence": ".autocomplete-item {"
+  },
+  {
+    "id": "BUG-065",
+    "severity": "Medium",
+    "category": "Accessibility",
+    "issue": "Page title doesn't update on navigation \u2014 always shows \"TalentFlow - HR Management\"",
+    "location": "index.html, app.js `route()`",
+    "trigger": "Navigate to Jobs \u2014 browser title still shows default",
+    "expected_agents": [
+      "accessibility"
+    ],
+    "matching_file": "js/app.js",
+    "matching_function": "route()",
+    "matching_keywords": [
+      "page",
+      "title",
+      "doesn",
+      "update",
+      "navigation",
+      "always",
+      "talentflow",
+      "management",
+      "navigate",
+      "jobs",
+      "browser",
+      "default"
+    ],
+    "code_evidence": "if (hash === '#/' || hash === '#') {"
+  },
+  {
+    "id": "BUG-066",
+    "severity": "High",
+    "category": "Responsive/Layout",
+    "issue": "Sidebar overlaps main content on tablet (768px-1024px)",
+    "location": "style.css `@media 1024px`",
+    "trigger": "View on 1024px wide viewport \u2014 sidebar covers content",
+    "expected_agents": [
+      "viewport"
+    ],
+    "matching_file": "style.css",
+    "matching_function": "@media 1024px",
+    "matching_keywords": [
+      "sidebar",
+      "overlaps",
+      "main",
+      "content",
+      "tablet",
+      "view",
+      "wide",
+      "viewport",
+      "covers"
+    ],
+    "code_evidence": "/* No adjustment \u2014 sidebar overlaps .main-wrapper */"
+  },
+  {
+    "id": "BUG-067",
+    "severity": "Medium",
+    "category": "Responsive/Layout",
+    "issue": "Data tables don't scroll horizontally on mobile \u2014 content clipped",
+    "location": "style.css `@media 768px`",
+    "trigger": "View payroll table on 375px viewport \u2014 columns cut off",
+    "expected_agents": [
+      "viewport"
+    ],
+    "matching_file": "style.css",
+    "matching_function": "@media 768px",
+    "matching_keywords": [
+      "data",
+      "tables",
+      "don",
+      "scroll",
+      "horizontally",
+      "mobile",
+      "content",
+      "clipped",
+      "view",
+      "payroll",
+      "table",
+      "viewport",
+      "columns",
+      "cut",
+      "off"
+    ],
+    "code_evidence": ".table-wrapper { /* missing overflow-x: auto */ }"
+  },
+  {
+    "id": "BUG-068",
+    "severity": "Medium",
+    "category": "Responsive/Layout",
+    "issue": "Touch targets below 44px on mobile \u2014 footer links and nav items too small",
+    "location": "style.css footer, nav responsive",
+    "trigger": "Try to tap footer links on mobile \u2014 too small",
+    "expected_agents": [
+      "viewport"
+    ],
+    "matching_file": "style.css",
+    "matching_function": "",
+    "matching_keywords": [
+      "touch",
+      "targets",
+      "below",
+      "mobile",
+      "footer",
+      "links",
+      "nav",
+      "items",
+      "too",
+      "small",
+      "try",
+      "tap"
+    ],
+    "code_evidence": ".footer-section a {"
+  },
+  {
+    "id": "BUG-069",
+    "severity": "Medium",
+    "category": "Responsive/Layout",
+    "issue": "Calendar grid breaks on small screens \u2014 7-column grid too narrow",
+    "location": "style.css `@media 768px`",
+    "trigger": "View calendar on 375px viewport \u2014 cells unreadable",
+    "expected_agents": [
+      "viewport"
+    ],
+    "matching_file": "style.css",
+    "matching_function": "@media 768px",
+    "matching_keywords": [
+      "calendar",
+      "grid",
+      "breaks",
+      "small",
+      "screens",
+      "column",
+      "too",
+      "narrow",
+      "view",
+      "viewport",
+      "cells",
+      "unreadable"
+    ],
+    "code_evidence": ".calendar-grid { /* Still 7 columns, cells too narrow */ }"
+  },
+  {
+    "id": "BUG-070",
+    "severity": "Medium",
+    "category": "Responsive/Layout",
+    "issue": "Form inputs overflow container on mobile \u2014 fixed width of 400px",
+    "location": "style.css `@media 768px`",
+    "trigger": "Open any form on mobile \u2014 inputs extend beyond screen",
+    "expected_agents": [
+      "viewport"
+    ],
+    "matching_file": "style.css",
+    "matching_function": "@media 768px",
+    "matching_keywords": [
+      "form",
+      "inputs",
+      "overflow",
+      "container",
+      "mobile",
+      "fixed",
+      "width",
+      "open",
+      "extend",
+      "beyond",
+      "screen"
+    ],
+    "code_evidence": ".form-group input, .form-group select { width: 400px; /* BUG-070: overflows mobile viewport */ }"
+  },
+  {
+    "id": "BUG-071",
+    "severity": "Medium",
+    "category": "Responsive/Layout",
+    "issue": "Dashboard stat cards don't stack on mobile \u2014 4-column grid persists",
+    "location": "style.css `@media 768px`",
+    "trigger": "View dashboard on 375px viewport \u2014 cards too narrow",
+    "expected_agents": [
+      "viewport"
+    ],
+    "matching_file": "style.css",
+    "matching_function": "@media 768px",
+    "matching_keywords": [
+      "dashboard",
+      "stat",
+      "cards",
+      "don",
+      "stack",
+      "mobile",
+      "column",
+      "grid",
+      "persists",
+      "view",
+      "viewport",
+      "too",
+      "narrow"
+    ],
+    "code_evidence": ".stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }"
+  },
+  {
+    "id": "BUG-072",
+    "severity": "Medium",
+    "category": "Responsive/Layout",
+    "issue": "Modal extends beyond viewport on small screens \u2014 fixed 500px width",
+    "location": "style.css `@media 768px`",
+    "trigger": "Open login modal on 375px viewport \u2014 overflows screen",
+    "expected_agents": [
+      "viewport"
+    ],
+    "matching_file": "style.css",
+    "matching_function": "@media 768px",
+    "matching_keywords": [
+      "modal",
+      "extends",
+      "beyond",
+      "viewport",
+      "small",
+      "screens",
+      "fixed",
+      "width",
+      "open",
+      "login",
+      "overflows",
+      "screen"
+    ],
+    "code_evidence": ".modal-container { width: 500px; /* BUG-072: exceeds 375px mobile viewport */ }"
+  },
+  {
+    "id": "BUG-073",
+    "severity": "High",
+    "category": "Responsive/Layout",
+    "issue": "Fixed-position sidebar causes horizontal scroll on mobile",
+    "location": "style.css `@media 768px`",
+    "trigger": "Load app on 375px viewport \u2014 page scrolls horizontally",
+    "expected_agents": [
+      "viewport"
+    ],
+    "matching_file": "style.css",
+    "matching_function": "@media 768px",
+    "matching_keywords": [
+      "fixed",
+      "position",
+      "sidebar",
+      "causes",
+      "horizontal",
+      "scroll",
+      "mobile",
+      "load",
+      "app",
+      "viewport",
+      "page",
+      "scrolls",
+      "horizontally"
+    ],
+    "code_evidence": ".sidebar { /* Not hidden or collapsed on mobile */ }"
+  },
+  {
+    "id": "BUG-074",
+    "severity": "Medium",
+    "category": "Responsive/Layout",
+    "issue": "Kanban candidate pipeline columns don't stack on mobile",
+    "location": "style.css `@media 768px`",
+    "trigger": "View candidates kanban on 375px \u2014 columns overflow",
+    "expected_agents": [
+      "viewport"
+    ],
+    "matching_file": "style.css",
+    "matching_function": "@media 768px",
+    "matching_keywords": [
+      "kanban",
+      "candidate",
+      "pipeline",
+      "columns",
+      "don",
+      "stack",
+      "mobile",
+      "view",
+      "candidates",
+      "overflow"
+    ],
+    "code_evidence": ".kanban-board {"
+  },
+  {
+    "id": "BUG-075",
+    "severity": "Low",
+    "category": "Responsive/Layout",
+    "issue": "Action buttons hidden behind content on tablet \u2014 clipped by overflow",
+    "location": "style.css `@media 1024px`",
+    "trigger": "View tables on tablet \u2014 edit/delete buttons cut off",
+    "expected_agents": [
+      "viewport"
+    ],
+    "matching_file": "style.css",
+    "matching_function": "@media 1024px",
+    "matching_keywords": [
+      "action",
+      "buttons",
+      "hidden",
+      "behind",
+      "content",
+      "tablet",
+      "clipped",
+      "overflow",
+      "view",
+      "tables",
+      "edit",
+      "delete",
+      "cut",
+      "off"
+    ],
+    "code_evidence": ".table-actions {"
+  },
+  {
+    "id": "BUG-076",
+    "severity": "Critical",
+    "category": "Security",
+    "issue": "Search query rendered directly into innerHTML \u2014 XSS vulnerability",
+    "location": "render.js `employees()`",
+    "trigger": "Search for `<img src=x onerror=alert(1)>` on employees page",
+    "expected_agents": [
+      "edge_case",
+      "security"
+    ],
+    "matching_file": "js/render.js",
+    "matching_function": "employees()",
+    "matching_keywords": [
+      "search",
+      "query",
+      "rendered",
+      "directly",
+      "innerhtml",
+      "xss",
+      "vulnerability",
+      "img",
+      "src",
+      "onerror",
+      "alert",
+      "employees",
+      "page"
+    ],
+    "code_evidence": "if (searchQuery) {"
+  },
+  {
+    "id": "BUG-077",
+    "severity": "Critical",
+    "category": "Security",
+    "issue": "Employee/user bio rendered with innerHTML \u2014 stored XSS vulnerability",
+    "location": "render.js `employeeDetail()`, `profile()`",
+    "trigger": "Save bio with `<script>alert(1)</script>`, view profile",
+    "expected_agents": [
+      "edge_case",
+      "security"
+    ],
+    "matching_file": "js/render.js",
+    "matching_function": "employeeDetail()",
+    "matching_keywords": [
+      "employee",
+      "user",
+      "bio",
+      "rendered",
+      "innerhtml",
+      "stored",
+      "xss",
+      "vulnerability",
+      "save",
+      "script",
+      "alert",
+      "view",
+      "profile"
+    ],
+    "code_evidence": "html += '<div class=\"bio\">' + emp.bio + '</div>';"
+  },
+  {
+    "id": "BUG-078",
+    "severity": "Critical",
+    "category": "Security",
+    "issue": "Job description rendered with innerHTML \u2014 XSS vulnerability",
+    "location": "render.js `jobDetail()`",
+    "trigger": "Create job with description containing `<img src=x onerror=alert(1)>`",
+    "expected_agents": [
+      "edge_case",
+      "security"
+    ],
+    "matching_file": "js/render.js",
+    "matching_function": "jobDetail()",
+    "matching_keywords": [
+      "job",
+      "description",
+      "rendered",
+      "innerhtml",
+      "xss",
+      "vulnerability",
+      "create",
+      "containing",
+      "img",
+      "src",
+      "onerror",
+      "alert"
+    ],
+    "code_evidence": "html += '<div class=\"card\">';"
+  },
+  {
+    "id": "BUG-079",
+    "severity": "Medium",
+    "category": "Security",
+    "issue": "No CSRF tokens on any form submissions",
+    "location": "app.js all save functions",
+    "trigger": "Inspect form HTML \u2014 no hidden CSRF input",
+    "expected_agents": [
+      "security"
+    ],
+    "matching_file": "js/app.js",
+    "matching_function": "",
+    "matching_keywords": [
+      "csrf",
+      "tokens",
+      "form",
+      "submissions",
+      "inspect",
+      "html",
+      "hidden",
+      "input"
+    ],
+    "code_evidence": "/* ---------- Bootstrap ---------- */"
+  },
+  {
+    "id": "BUG-080",
+    "severity": "High",
+    "category": "Security",
+    "issue": "User credentials stored alongside user data in sessionStorage",
+    "location": "store.js `auth.register()`",
+    "trigger": "Register, inspect sessionStorage \u2014 password hash indicator visible",
+    "expected_agents": [
+      "security"
+    ],
+    "matching_file": "js/store.js",
+    "matching_function": "auth.register()",
+    "matching_keywords": [
+      "user",
+      "credentials",
+      "stored",
+      "alongside",
+      "data",
+      "sessionstorage",
+      "register",
+      "inspect",
+      "password",
+      "hash",
+      "indicator",
+      "visible"
+    ],
+    "code_evidence": "/* BUG-082: window.currentUserRole set \u2014 modifiable via browser console */"
+  },
+  {
+    "id": "BUG-081",
+    "severity": "Medium",
+    "category": "Security",
+    "issue": "Internal API endpoint URL exposed in client-side JavaScript comments",
+    "location": "data.js top-level comment",
+    "trigger": "View page source \u2014 finds `https://internal-api.talentflow.io/v2/employees`",
+    "expected_agents": [
+      "security"
+    ],
+    "matching_file": "js/data.js",
+    "matching_function": "",
+    "matching_keywords": [
+      "internal",
+      "api",
+      "endpoint",
+      "url",
+      "exposed",
+      "client",
+      "side",
+      "javascript",
+      "comments",
+      "view",
+      "page",
+      "source",
+      "finds",
+      "https",
+      "talentflow",
+      "employees"
+    ],
+    "code_evidence": "var DATA = {"
+  },
+  {
+    "id": "BUG-082",
+    "severity": "High",
+    "category": "Security",
+    "issue": "User role stored on `window.currentUserRole` \u2014 modifiable via browser console",
+    "location": "store.js auth methods",
+    "trigger": "Open console, type `window.currentUserRole = 'admin'` \u2014 role changed",
+    "expected_agents": [
+      "security"
+    ],
+    "matching_file": "js/store.js",
+    "matching_function": "",
+    "matching_keywords": [
+      "user",
+      "role",
+      "stored",
+      "window",
+      "currentuserrole",
+      "modifiable",
+      "via",
+      "browser",
+      "console",
+      "open",
+      "type",
+      "admin",
+      "changed"
+    ],
+    "code_evidence": "/* BUG-084: settings.security.sessionTimeout is 0 and never checked \u2014 no session expiry */"
+  },
+  {
+    "id": "BUG-083",
+    "severity": "High",
+    "category": "Security",
+    "issue": "File upload doesn't sanitize filename \u2014 path traversal risk",
+    "location": "app.js `uploadDocument()`",
+    "trigger": "Upload file named `../../../etc/passwd` \u2014 accepted",
+    "expected_agents": [
+      "security"
+    ],
+    "matching_file": "js/app.js",
+    "matching_function": "uploadDocument()",
+    "matching_keywords": [
+      "file",
+      "upload",
+      "doesn",
+      "sanitize",
+      "filename",
+      "path",
+      "traversal",
+      "risk",
+      "named",
+      "etc",
+      "passwd",
+      "accepted"
+    ],
+    "code_evidence": "/* BUG-026: Upload progress bar set to 100% but never reset */"
+  },
+  {
+    "id": "BUG-084",
+    "severity": "Medium",
+    "category": "Security",
+    "issue": "Session token never expires \u2014 no timeout enforcement",
+    "location": "data.js settings, store.js",
+    "trigger": "Log in, wait indefinitely \u2014 session never expires",
+    "expected_agents": [
+      "security"
+    ],
+    "matching_file": "js/store.js",
+    "matching_function": "",
+    "matching_keywords": [
+      "session",
+      "token",
+      "never",
+      "expires",
+      "timeout",
+      "enforcement",
+      "log",
+      "wait",
+      "indefinitely"
+    ],
+    "code_evidence": "auth: {"
+  },
+  {
+    "id": "BUG-085",
+    "severity": "Critical",
+    "category": "Security",
+    "issue": "Employee SSN displayed in plain text without masking",
+    "location": "render.js `employeeDetail()`",
+    "trigger": "View any employee detail \u2014 full SSN visible (e.g., \"123-45-6789\")",
+    "expected_agents": [
+      "security"
+    ],
+    "matching_file": "js/render.js",
+    "matching_function": "employeeDetail()",
+    "matching_keywords": [
+      "employee",
+      "ssn",
+      "displayed",
+      "plain",
+      "text",
+      "masking",
+      "view",
+      "detail",
+      "full",
+      "visible"
+    ],
+    "code_evidence": "html += '<p>SSN: ' + emp.ssn + '</p>';"
+  },
+  {
+    "id": "BUG-086",
+    "severity": "Low",
+    "category": "Console/Performance",
+    "issue": "Unhandled Promise rejection when generating report",
+    "location": "app.js `generate-report` handler",
+    "trigger": "Click \"Generate Report\" \u2192 check DevTools console for unhandled rejection",
+    "expected_agents": [
+      "error_recovery"
+    ],
+    "matching_file": "js/app.js",
+    "matching_function": "generate-report",
+    "matching_keywords": [
+      "unhandled",
+      "promise",
+      "rejection",
+      "generating",
+      "report",
+      "click",
+      "generate",
+      "devtools",
+      "console"
+    ],
+    "code_evidence": "new Promise(function(resolve) { resolve(); }).then(function() {"
+  },
+  {
+    "id": "BUG-087",
+    "severity": "Low",
+    "category": "Console/Performance",
+    "issue": "Oversized decorative SVG (~80KB) with 300 random circles generated on every page load",
+    "location": "render.js `HERO_DECORATION`",
+    "trigger": "Open DevTools \u2192 Performance \u2192 record page load",
+    "expected_agents": [],
+    "matching_file": "js/render.js",
+    "matching_function": "HERO_DECORATION",
+    "matching_keywords": [
+      "oversized",
+      "decorative",
+      "svg",
+      "random",
+      "circles",
+      "generated",
+      "every",
+      "page",
+      "load",
+      "open",
+      "devtools",
+      "performance",
+      "record"
+    ],
+    "code_evidence": "var HERO_DECORATION = (function() {"
+  },
+  {
+    "id": "BUG-088",
+    "severity": "Low",
+    "category": "Console/Performance",
+    "issue": "Console.error logged for missing Chart library on every page load",
+    "location": "render.js top-level",
+    "trigger": "Open DevTools console \u2014 \"Chart library not loaded\" error",
+    "expected_agents": [
+      "error_recovery"
+    ],
+    "matching_file": "js/render.js",
+    "matching_function": "",
+    "matching_keywords": [
+      "console",
+      "error",
+      "logged",
+      "missing",
+      "chart",
+      "library",
+      "every",
+      "page",
+      "load",
+      "open",
+      "devtools",
+      "loaded"
+    ],
+    "code_evidence": "try { Chart.defaults.responsive = true; } catch(e) { console.error('Chart library not loaded:', e); }"
+  },
+  {
+    "id": "BUG-089",
+    "severity": "Medium",
+    "category": "Console/Performance",
+    "issue": "Event listeners added on each render without cleanup \u2014 memory leak",
+    "location": "render.js `documents()`, app.js",
+    "trigger": "Navigate to Documents page multiple times \u2014 listeners accumulate",
+    "expected_agents": [
+      "error_recovery"
+    ],
+    "matching_file": "js/app.js",
+    "matching_function": "documents()",
+    "matching_keywords": [
+      "event",
+      "listeners",
+      "added",
+      "each",
+      "render",
+      "cleanup",
+      "memory",
+      "leak",
+      "navigate",
+      "documents",
+      "page",
+      "multiple",
+      "times",
+      "accumulate"
+    ],
+    "code_evidence": "document.addEventListener('click', function(e) { App.handleClick(e); });"
+  },
+  {
+    "id": "BUG-090",
+    "severity": "Low",
+    "category": "Console/Performance",
+    "issue": "Unnecessary `setTimeout(0)` wrapper in render queue \u2014 clutters profiler",
+    "location": "render.js `queueRender()`",
+    "trigger": "Profile page rendering \u2014 setTimeout adds noise to task queue",
+    "expected_agents": [],
+    "matching_file": "js/render.js",
+    "matching_function": "queueRender()",
+    "matching_keywords": [
+      "unnecessary",
+      "settimeout",
+      "wrapper",
+      "render",
+      "queue",
+      "clutters",
+      "profiler",
+      "profile",
+      "page",
+      "rendering",
+      "adds",
+      "noise",
+      "task"
+    ],
+    "code_evidence": "var _renderQueue = [];"
+  },
+  {
+    "id": "BUG-091",
+    "severity": "Low",
+    "category": "Console/Performance",
+    "issue": "Large inline base64 SVG data URI (~100KB) in CSS",
+    "location": "style.css `.hero-bg`",
+    "trigger": "Inspect stylesheet \u2014 massive data-uri in CSS",
+    "expected_agents": [],
+    "matching_file": "style.css",
+    "matching_function": ".hero-bg",
+    "matching_keywords": [
+      "large",
+      "inline",
+      "base64",
+      "svg",
+      "data",
+      "uri",
+      "css",
+      "inspect",
+      "stylesheet",
+      "massive"
+    ],
+    "code_evidence": ".hero-bg {"
+  },
+  {
+    "id": "BUG-092",
+    "severity": "Low",
+    "category": "Console/Performance",
+    "issue": "Synchronous localStorage scan on every init \u2014 blocks initial render",
+    "location": "app.js `init()`",
+    "trigger": "Profile app init \u2014 synchronous JSON.parse on startup",
+    "expected_agents": [
+      "error_recovery"
+    ],
+    "matching_file": "js/app.js",
+    "matching_function": "init()",
+    "matching_keywords": [
+      "synchronous",
+      "localstorage",
+      "scan",
+      "every",
+      "init",
+      "blocks",
+      "initial",
+      "render",
+      "profile",
+      "app",
+      "json",
+      "parse",
+      "startup"
+    ],
+    "code_evidence": "try { var _legacyData = localStorage.getItem('talentflow_legacy_migration'); JSON.parse(_legacyData); } catch(e) { /* BUG-092 */ }"
+  },
+  {
+    "id": "BUG-093",
+    "severity": "Low",
+    "category": "Console/Performance",
+    "issue": "Repeated DOM queries inside render functions \u2014 no result caching",
+    "location": "render.js `employees()`",
+    "trigger": "Profile employee list render \u2014 unnecessary querySelectorAll during string building",
+    "expected_agents": [],
+    "matching_file": "js/render.js",
+    "matching_function": "employees()",
+    "matching_keywords": [
+      "repeated",
+      "dom",
+      "queries",
+      "inside",
+      "render",
+      "functions",
+      "result",
+      "caching",
+      "profile",
+      "employee",
+      "list",
+      "unnecessary",
+      "queryselectorall",
+      "during",
+      "string",
+      "building"
+    ],
+    "code_evidence": "var existingCards = document.querySelectorAll('.employee-card');"
+  },
+  {
+    "id": "BUG-094",
+    "severity": "High",
+    "category": "Broken Links",
+    "issue": "Footer \"Privacy Policy\" links to `/privacy-policy` \u2014 server path that returns 404",
+    "location": "index.html footer",
+    "trigger": "Click \"Privacy Policy\" in footer",
+    "expected_agents": [
+      "happy_path"
+    ],
+    "matching_file": "index.html",
+    "matching_function": "",
+    "matching_keywords": [
+      "footer",
+      "privacy",
+      "policy",
+      "links",
+      "server",
+      "path",
+      "returns",
+      "click"
+    ],
+    "code_evidence": ""
+  },
+  {
+    "id": "BUG-095",
+    "severity": "Medium",
+    "category": "Broken Links",
+    "issue": "Footer \"Terms of Service\" links to `/terms` \u2014 returns 404",
+    "location": "index.html footer",
+    "trigger": "Click \"Terms of Service\" in footer",
+    "expected_agents": [
+      "happy_path"
+    ],
+    "matching_file": "index.html",
+    "matching_function": "",
+    "matching_keywords": [
+      "footer",
+      "terms",
+      "service",
+      "links",
+      "returns",
+      "click"
+    ],
+    "code_evidence": ""
+  },
+  {
+    "id": "BUG-096",
+    "severity": "Medium",
+    "category": "Broken Links",
+    "issue": "\"Help Center\" link points to `#/help` \u2014 non-existent hash route",
+    "location": "index.html footer",
+    "trigger": "Click \"Help Center\" \u2014 shows 404 page",
+    "expected_agents": [
+      "happy_path"
+    ],
+    "matching_file": "index.html",
+    "matching_function": "",
+    "matching_keywords": [
+      "help",
+      "center",
+      "link",
+      "points",
+      "non",
+      "existent",
+      "hash",
+      "route",
+      "click",
+      "page"
+    ],
+    "code_evidence": ""
+  },
+  {
+    "id": "BUG-097",
+    "severity": "Low",
+    "category": "Broken Links",
+    "issue": "Employee profile photo URLs point to non-existent image paths",
+    "location": "data.js employees id=3, id=7",
+    "trigger": "View employee #3 or #7 \u2014 avatar image broken",
+    "expected_agents": [
+      "happy_path"
+    ],
+    "matching_file": "js/data.js",
+    "matching_function": "",
+    "matching_keywords": [
+      "employee",
+      "profile",
+      "photo",
+      "urls",
+      "point",
+      "non",
+      "existent",
+      "image",
+      "paths",
+      "view",
+      "avatar",
+      "broken"
+    ],
+    "code_evidence": "{ id: 4,  name: 'David Park',        email: 'david.park@talentflow.io',      phone: '(555) 101-2004', role: 'Sales Director',         departmentId: 4, salary: 155000, startDate: '2020-05-01', bir"
+  },
+  {
+    "id": "BUG-098",
+    "severity": "Medium",
+    "category": "Broken Links",
+    "issue": "\"Documentation\" link in footer points to dead external URL",
+    "location": "index.html footer",
+    "trigger": "Click \"Documentation\" \u2014 external page doesn't load",
+    "expected_agents": [
+      "happy_path"
+    ],
+    "matching_file": "index.html",
+    "matching_function": "",
+    "matching_keywords": [
+      "documentation",
+      "link",
+      "footer",
+      "points",
+      "dead",
+      "external",
+      "url",
+      "click",
+      "page",
+      "doesn",
+      "load"
+    ],
+    "code_evidence": ""
+  },
+  {
+    "id": "BUG-099",
+    "severity": "Medium",
+    "category": "State Management",
+    "issue": "Auth state stored in sessionStorage \u2014 user is logged out on page refresh",
+    "location": "store.js `auth`",
+    "trigger": "Log in, press F5 to refresh \u2014 logged out",
+    "expected_agents": [
+      "error_recovery"
+    ],
+    "matching_file": "js/store.js",
+    "matching_function": "auth",
+    "matching_keywords": [
+      "auth",
+      "state",
+      "stored",
+      "sessionstorage",
+      "user",
+      "logged",
+      "out",
+      "page",
+      "refresh",
+      "log",
+      "press"
+    ],
+    "code_evidence": "/* BUG-080: password stored alongside user data in sessionStorage */"
+  },
+  {
+    "id": "BUG-100",
+    "severity": "High",
+    "category": "State Management",
+    "issue": "Dashboard stat counters use initial DATA counts, not current Store state",
+    "location": "store.js `getDashboardStats()`, render.js",
+    "trigger": "Add an employee, return to dashboard \u2014 total count unchanged",
+    "expected_agents": [
+      "happy_path"
+    ],
+    "matching_file": "js/store.js",
+    "matching_function": "getDashboardStats()",
+    "matching_keywords": [
+      "dashboard",
+      "stat",
+      "counters",
+      "use",
+      "initial",
+      "data",
+      "counts",
+      "current",
+      "store",
+      "state",
+      "add",
+      "employee",
+      "return",
+      "total",
+      "count",
+      "unchanged"
+    ],
+    "code_evidence": "getDashboardStats: function() {"
+  }
+]
